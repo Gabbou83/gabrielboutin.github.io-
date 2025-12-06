@@ -557,8 +557,15 @@
   transition: color 0.2s ease;
 }
 
-a.patent-card__number:hover {
+.patent-card__number svg {
+  opacity: 0;
   color: var(--color-accent-primary);
+  transition: opacity 0.2s ease;
+}
+
+.patent-card:hover .patent-card__number svg,
+.patent-card.is-expanded .patent-card__number svg {
+  opacity: 1;
 }
 
 .patent-card__description {
@@ -758,10 +765,69 @@ a.patent-card__number:hover {
   margin-bottom: var(--space-3);
 }
 
-/* Hide +/- indicator on award cards and media list items */
+/* Hide +/- indicator on award cards, media list items, and inline links */
 .award-card.expandable::after,
-.media-list__item.expandable::after {
+.media-list__item.expandable::after,
+a.expandable::after,
+.highlight-list__item a.expandable::after,
+.patent-card.expandable::after,
+.tags a.expandable::after {
   display: none;
+}
+
+/* ==========================================================================
+   Two-Tap Expandable Links (Mobile)
+   ========================================================================== */
+
+/* Tags - expanded state */
+.tags a.expandable.is-expanded .tag {
+  background: var(--color-accent-alpha-15);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+  box-shadow: 0 0 12px var(--color-accent-alpha-20);
+}
+
+/* Highlight list items - expanded state */
+.highlight-list__item a.expandable.is-expanded {
+  color: var(--color-accent-primary);
+}
+
+.highlight-list__item:has(a.expandable.is-expanded) {
+  transform: translateX(8px);
+  background: var(--color-accent-alpha-03);
+}
+
+.highlight-list__item:has(a.expandable.is-expanded)::before {
+  transform: translateX(2px);
+}
+
+/* Patent cards (full card as link) - expanded state */
+a.patent-card.expandable {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.patent-card.expandable.is-expanded {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 20px var(--color-accent-alpha-20), 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+a.patent-card.expandable.is-expanded .patent-card__title {
+  color: var(--color-accent-primary);
+}
+
+/* Link icon indicator for expanded links */
+.tags a.expandable.is-expanded .tag::after,
+.highlight-list__item a.expandable.is-expanded::after {
+  content: ' ↗';
+  font-size: 0.9em;
+  opacity: 1;
+  animation: pulse-link 1s ease-in-out infinite;
+}
+
+@keyframes pulse-link {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .award-card--featured .card-detail {
