@@ -27,11 +27,17 @@
   height: 100%;
 }
 
-.nav__brand {
+.nav__left {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   margin-right: auto;
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .nav__logo {
@@ -160,7 +166,6 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition: all var(--transition-fast);
-  margin-left: var(--space-2);
 }
 
 .nav__contact:hover {
