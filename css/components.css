@@ -173,10 +173,9 @@
 }
 
 .nav__contact-icon--mobile {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  display: block;
 }
 
 .nav__contact-icon--desktop {
