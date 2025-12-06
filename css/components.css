@@ -1146,3 +1146,31 @@ a.patent-card.expandable.is-expanded .patent-card__title {
 [data-theme="light"] .card--interactive::before {
   background: var(--color-accent-alpha-03);
 }
+
+/* ==========================================================================
+   Word-by-Word Reveal Animation
+   ========================================================================== */
+
+.word-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(4px);
+}
+
+.profile__text.words-animate .word-reveal {
+  animation: wordReveal 0.4s ease-out forwards;
+}
+
+@keyframes wordReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}

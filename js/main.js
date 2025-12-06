@@ -262,6 +262,50 @@
   handleScroll();
 
   // ==========================================================================
+  // Word-by-Word Reveal Animation for About Me Section
+  // ==========================================================================
+
+  function initWordReveal() {
+    const profileText = document.querySelector('.profile__text');
+    if (!profileText) return;
+
+    const paragraphs = profileText.querySelectorAll('p');
+    let wordIndex = 0;
+
+    paragraphs.forEach(p => {
+      const html = p.innerHTML;
+      // Split by words while preserving HTML tags
+      const words = html.split(/(\s+)/).filter(word => word.trim() !== '');
+
+      p.innerHTML = words.map(word => {
+        // Check if it's whitespace
+        if (/^\s+$/.test(word)) return word;
+
+        const delay = wordIndex * 30; // 30ms between each word
+        wordIndex++;
+        return `<span class="word-reveal" style="animation-delay: ${delay}ms">${word}</span>`;
+      }).join(' ');
+    });
+
+    // Trigger animation when section is in view
+    const profileSection = document.getElementById('profile');
+    const wordRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          profileText.classList.add('words-animate');
+          wordRevealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    if (profileSection) {
+      wordRevealObserver.observe(profileSection);
+    }
+  }
+
+  initWordReveal();
+
+  // ==========================================================================
   // Subtle Hue Shift Animation (Pastel tones)
   // ==========================================================================
 
