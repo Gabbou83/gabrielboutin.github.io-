@@ -149,8 +149,9 @@
 .nav__contact {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   color: var(--color-accent-primary);
@@ -160,6 +161,8 @@
   text-decoration: none;
   transition: all var(--transition-fast);
   margin-left: var(--space-2);
+  width: 44px;
+  height: 44px;
 }
 
 .nav__contact:hover {
@@ -168,9 +171,30 @@
 }
 
 .nav__contact svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
+}
+
+.nav__contact-text {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .nav__contact {
+    width: auto;
+    height: auto;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .nav__contact svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .nav__contact-text {
+    display: inline;
+  }
 }
 
 /* ==========================================================================
