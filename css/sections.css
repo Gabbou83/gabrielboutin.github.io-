@@ -223,24 +223,58 @@
   }
 }
 
-/* Hero Background Photo */
+/* Hero Background Photos - both preloaded for smooth crossfade */
 .hero {
+  background: none;
+}
+
+/* Dark mode image */
+.hero__bg-dark {
+  position: absolute;
+  inset: 0;
   background-image: url('../images/portrait_optimized.jpg');
   background-size: cover;
   background-position: center calc(30%);
   background-repeat: no-repeat;
-  transition: background-image 0.3s ease;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  z-index: 0;
+}
+
+/* Light mode image */
+.hero__bg-light {
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/ChatGPT Image Dec 4, 2025, 06_34_15 PM.png');
+  background-size: cover;
+  background-position: calc(50% - 15px) calc(30% + 20px);
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 0;
 }
 
 @media (min-width: 768px) {
-  .hero {
+  .hero__bg-dark {
     background-position: center calc(30% - 5px);
+  }
+  .hero__bg-light {
+    background-size: 103%;
+    background-position: calc(50% - 25px) calc(30% + 35px);
   }
 }
 
-/* Overlay for text readability - dark mode */
-.hero::after {
-  content: '';
+/* Light mode: crossfade */
+[data-theme="light"] .hero__bg-dark {
+  opacity: 0;
+}
+
+[data-theme="light"] .hero__bg-light {
+  opacity: 1;
+}
+
+/* Dark overlay */
+.hero__overlay-dark {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -259,40 +293,15 @@
     rgba(10, 10, 11, 0) 50%
   );
   pointer-events: none;
-  transition: background 0.3s ease, opacity 0.3s ease;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.6s ease;
 }
 
-/* Light mode image preload via ::before (always present, just hidden in dark mode) */
-.hero::before {
-  content: '';
+/* Light overlay */
+.hero__overlay-light {
   position: absolute;
   inset: 0;
-  background-image: url('../images/ChatGPT Image Dec 4, 2025, 06_34_15 PM.png');
-  background-size: cover;
-  background-position: calc(50% - 15px) calc(30% + 20px);
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Light mode photo */
-[data-theme="light"] .hero {
-  background-image: none;
-}
-
-[data-theme="light"] .hero::before {
-  opacity: 1;
-}
-
-@media (min-width: 768px) {
-  .hero::before {
-    background-size: 103%;
-    background-position: calc(50% - 25px) calc(30% + 35px);
-  }
-}
-
-[data-theme="light"] .hero::after {
-  display: block;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 0%,
@@ -307,10 +316,14 @@
     rgba(255, 255, 255, 0.97) 90%,
     rgba(255, 255, 255, 1) 95%
   );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
 @media (min-width: 768px) {
-  [data-theme="light"] .hero::after {
+  .hero__overlay-light {
     background: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0.95) 0%,
@@ -336,6 +349,15 @@
       rgba(255, 255, 255, 0) 50%
     );
   }
+}
+
+/* Light mode: crossfade overlays */
+[data-theme="light"] .hero__overlay-dark {
+  opacity: 0;
+}
+
+[data-theme="light"] .hero__overlay-light {
+  opacity: 1;
 }
 
 [data-theme="light"] .hero__subtitle,
